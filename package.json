@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,15 @@
   "bugs": {
     "url": "https://github.com/YassHouays/siret-invaders/issues"
   },
-  "homepage": "https://github.com/YassHouays/siret-invaders#readme"
+  "homepage": "https://github.com/YassHouays/siret-invaders#readme",
+  "dependencies": {
+    "convert-csv-to-json": "^1.0.0",
+    "csv-parser": "^2.3.3",
+    "csv-split-stream": "^1.0.2",
+    "dotenv": "^8.2.0",
+    "fs": "0.0.1-security",
+    "mongoose": "^5.10.6",
+    "pm2": "^4.4.1",
+    "querystring": "^0.2.0"
+  }
 }
