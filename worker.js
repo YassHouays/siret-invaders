@@ -17,31 +17,39 @@ const db = connect.collection(process.env.NOSQL_TABLE);
 //     return false;
 // }
 
-const data = [];
+const worker = process.argv[5]
+const datas = [];
 fs.createReadStream(output_folder+`output-${process.argv[2]}.csv`)
-    .on('error', () => {
-        // handle error
-    })
-
     .pipe(csvParser())
-    .on('data', (row) => {
-       data.push(row);
-    })
-
+    .on('data', (row) => datas.push(row))
     .on('end', () => {
-        // handle end of CSV
-        db.insertMany(data, function(err,result){
-            if (err){
-                console.log('erreur');
-            }
-            else{
-                process.send({
-                    type: 'worker:fini',
-                    data: {
-                        identifier : process.argv[2],
-                    } 
-                })
+        console.log(datas);
+         // Get the collection and bulk api artefacts
+        bulkUpdateOps = [];    
+
+        datas.forEach(function(doc) {
+            bulkUpdateOps.push({ "insertOne": { "document": doc } });
+
+            if (bulkUpdateOps.length === 100000) {
+                db.bulkWrite(bulkUpdateOps).then(function(r) {
+                    console.log('inserted');
+                });
+                bulkUpdateOps = [];
             }
         })
-    })
 
+        if (bulkUpdateOps.length > 0) {
+            db.bulkWrite(bulkUpdateOps).then(function(r) {
+                console.log('inserted');
+            });
+        }
+
+        process.send({
+            type: 'worker:fini',
+            data: {
+                identifier  : process.argv[2],
+                worker      : process.argv[5]
+            }
+        })
+
+    });
