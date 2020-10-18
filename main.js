@@ -43,6 +43,19 @@ const closeTask = (id,worker)=>{
     });
     fs.writeFileSync(output_folder+'history.json', JSON.stringify(history));
 }
+function checkWorkersExist() { 
+    pm2.list((err, list) => {
+        if(list.length > 0){
+            setTimeout(() => {
+            checkWorkersExist()
+            }, 4000);
+        }else{
+            
+            console.log(`All datas are imported !`);
+            process.exit();
+        }
+    });
+}
 
 pm2.connect(function(err) {
     if (err) {
@@ -55,10 +68,10 @@ pm2.connect(function(err) {
     
     let history = fs.readFileSync(output_folder+'history.json');
     history = JSON.parse(history);
-    // const per_worker = Math.round(history.length / 6);
-    const per_worker = 25;
+    const per_worker = Math.round(history.length / 6);
+    // const per_worker = 25;
     let findTaske=[];
-    for (let i=1; i <=1 ; i++){
+    for (let i=1; i <=6 ; i++){
         findTaske = findTask(i, per_worker);
        if(findTaske)
         {
@@ -106,7 +119,7 @@ pm2.connect(function(err) {
                     });
                 }
                 else {
-                    process.exit();
+                    checkWorkersExist();
                 }
                    
             },4000)
