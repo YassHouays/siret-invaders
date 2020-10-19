@@ -13,17 +13,12 @@ const host = process.env.NOSQL_URL
 const connect = mongoose.createConnection(host, { useNewUrlParser: true, useUnifiedTopology: true })
 const db = connect.collection(process.env.NOSQL_TABLE);
 
-// if (!process.argv[2]) {
-//     return false;
-// }
-
 const worker = process.argv[5]
 const datas = [];
 fs.createReadStream(output_folder+`output-${process.argv[2]}.csv`)
     .pipe(csvParser())
     .on('data', (row) => datas.push(row))
     .on('end', () => {
-        console.log(datas);
          // Get the collection and bulk api artefacts
         bulkUpdateOps = [];    
 

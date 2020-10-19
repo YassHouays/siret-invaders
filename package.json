@@ -23,6 +23,7 @@
     "csv-split-stream": "^1.0.2",
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
+    "log-to-file": "^2.0.2",
     "mongoose": "^5.10.6",
     "pm2": "^4.4.1",
     "querystring": "^0.2.0"

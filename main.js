@@ -63,7 +63,7 @@ pm2.connect(function(err) {
     }
     
     pm2.list((err, list) => {
-      console.log(err, list)
+    //   console.log(err, list)
     })
     
     let history = fs.readFileSync(output_folder+'history.json');
@@ -71,7 +71,7 @@ pm2.connect(function(err) {
     const per_worker = Math.round(history.length / 6);
     // const per_worker = 25;
     let findTaske=[];
-    for (let i=1; i <=6 ; i++){
+    for (let i=1; i <=25 ; i++){
         findTaske = findTask(i, per_worker);
        if(findTaske)
         {
@@ -89,7 +89,7 @@ pm2.connect(function(err) {
             findTaske=[];
         }
         else{
-            process.exit();
+            // process.exit();
         }
     }
 
@@ -104,7 +104,9 @@ pm2.connect(function(err) {
             let nextTask =[]; 
             setTimeout(()=> {
                 nextTask = findTask(worker, per_worker);
-                console.log(nextTask);
+                if(nextTask){
+                    console.log(nextTask);
+                }
                 if (nextTask){
                     const pm2Config = {
                         script              : 'worker.js',

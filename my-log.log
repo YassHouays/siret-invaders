@@ -1,0 +1,21 @@
+2020.10.19, 08:22:42.0123 UTC -> Another data
+2020.10.19, 08:24:59.0261 UTC -> Split effectué en : 151
+2020.10.19, 08:33:33.0358 UTC -> duration [ms] = 1500
+2020.10.19, 08:33:33.0357 UTC -> Split effectué en : 151fichiers
+2020.10.19, 08:36:50.0042 UTC -> Split effectué en : 151fichiers
+2020.10.19, 08:36:50.0042 UTC -> duration [ms] = 500
+2020.10.19, 08:39:57.0053 UTC -> Split effectué en : 151fichiers
+2020.10.19, 08:39:57.0054 UTC -> Split effectué en : 151fichiers
+2020.10.19, 08:41:52.0870 UTC -> Split effectué en : 151fichiers
+2020.10.19, 08:41:52.0870 UTC -> undefined
+2020.10.19, 08:45:54.0494 UTC -> Split effectué en : 151fichiers
+2020.10.19, 08:47:22.0822 UTC -> Split effectué en : 151fichiers
+2020.10.19, 08:51:46.0800 UTC -> Split effectué en : 151fichiers
+2020.10.19, 08:51:46.0801 UTC -> Import files in ${hrend[0]}s (${end}ms)
+2020.10.19, 08:55:22.0632 UTC -> Split effectué en : 151fichiers
+2020.10.19, 08:55:22.0633 UTC -> Import files in ${hrend[0]}s (${end}ms)
+2020.10.19, 09:11:34.0598 UTC -> Split effectué en : 151fichiers
+2020.10.19, 09:11:34.0599 UTC -> Import files in ${hrend[0]}s (${end}ms)
+2020.10.19, 09:11:34.0599 UTC -> Split effectué en : 65secondes65470ms
+2020.10.19, 09:13:29.0785 UTC -> Split effectué en : 151fichiers
+2020.10.19, 09:13:29.0786 UTC -> Split effectué en : 62secondes
