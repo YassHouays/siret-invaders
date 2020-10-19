@@ -4,28 +4,26 @@ const fs = require ('fs');
 const { stringify } = require('querystring');
 const output_folder = 'output/';
 
-
 const findTask = (worker,per_worker) => {
-    let history = fs.readFileSync(output_folder+'history.json');
-    history = JSON.parse(history);
-
-    let i = 0;
-    const found = history.filter(function(item){
-        if (item.imported==0 && i == 0 ){
-            if(item.id > (worker == 1 ? 0 : per_worker * (worker - 1)) && item.id < per_worker * (worker + 1) ){
-                item.imported = 1,
-                item.worker = worker
-                i++;
-                return true;
+        let history = fs.readFileSync(output_folder+'history.json');
+        history = JSON.parse(history);
+    
+        let i = 0;
+        const found = history.filter(function(item){
+            if (item.imported==0 && i == 0 ){
+                if(item.id > (worker == 1 ? 0 : per_worker * (worker - 1)) && item.id < per_worker * (worker + 1) ){
+                    item.imported = 1,
+                    item.worker = worker
+                    i++;
+                    return true;
+                }
+                return false;
             }
             return false;
-        }
-        return false;
-    })
-    fs.writeFileSync(output_folder+'history.json',JSON.stringify(history));
-    return (found.length>0)? found[0] : null;
-
-}
+        })
+        fs.writeFileSync(output_folder+'history.json',JSON.stringify(history));
+        return (found.length>0)? found[0] : null;
+    }
 
 
 const closeTask = (id,worker)=>{
@@ -36,21 +34,24 @@ const closeTask = (id,worker)=>{
         if (item.id == id){
             item.imported = 3,
             item.worker = worker
-            item.position + 200000
+            item.position = 200000
             return true;
         }
         return false;
     });
     fs.writeFileSync(output_folder+'history.json', JSON.stringify(history));
 }
-function checkWorkersExist() { 
+function checkWorkersExist(start,hrstart) { 
     pm2.list((err, list) => {
         if(list.length > 0){
             setTimeout(() => {
-            checkWorkersExist()
+            checkWorkersExist(start,hrstart)
             }, 4000);
         }else{
+            let end 	= new Date() - start,
+                hrend	= process.hrtime(hrstart);
             
+            console.log(`Import files in ${hrend[0]}s (${end}ms)`);
             console.log(`All datas are imported !`);
             process.exit();
         }
@@ -58,6 +59,7 @@ function checkWorkersExist() {
 }
 
 pm2.connect(function(err) {
+    
     if (err) {
       process.exit(2);
     }
@@ -68,10 +70,13 @@ pm2.connect(function(err) {
     
     let history = fs.readFileSync(output_folder+'history.json');
     history = JSON.parse(history);
-    const per_worker = Math.round(history.length / 6);
-    // const per_worker = 25;
+
+    let start = new Date();
+    let hrstart = process.hrtime();
+
+    const per_worker = Math.round(history.length / 10);
     let findTaske=[];
-    for (let i=1; i <=25 ; i++){
+    for (let i=1; i <10 ; i++){
         findTaske = findTask(i, per_worker);
        if(findTaske)
         {
@@ -121,7 +126,7 @@ pm2.connect(function(err) {
                     });
                 }
                 else {
-                    checkWorkersExist();
+                    checkWorkersExist(start,hrstart);
                 }
                    
             },4000)

@@ -15,7 +15,8 @@ const db = connect.collection(process.env.NOSQL_TABLE);
 
 const worker = process.argv[5]
 const datas = [];
-fs.createReadStream(output_folder+`output-${process.argv[2]}.csv`)
+if(fs.existsSync(output_folder+`output-${process.argv[2]}.csv`)){
+    fs.createReadStream(output_folder+`output-${process.argv[2]}.csv`)
     .pipe(csvParser())
     .on('data', (row) => datas.push(row))
     .on('end', () => {
@@ -25,7 +26,7 @@ fs.createReadStream(output_folder+`output-${process.argv[2]}.csv`)
         datas.forEach(function(doc) {
             bulkUpdateOps.push({ "insertOne": { "document": doc } });
 
-            if (bulkUpdateOps.length === 100000) {
+            if (bulkUpdateOps.length === 1000) {
                 db.bulkWrite(bulkUpdateOps).then(function(r) {
                     console.log('inserted');
                 });
@@ -48,3 +49,4 @@ fs.createReadStream(output_folder+`output-${process.argv[2]}.csv`)
         })
 
     });
+}
