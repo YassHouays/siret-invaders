@@ -3,10 +3,11 @@
 This is a school project, You need to build a high-volume ```mongodb indexer``` for the government to transition ```data in csv format to a NoSQL database```
 
 ### INSTALLATION
-Download the CSV file ```"Sirene : Fichier StockEtablissement"``` here : ```https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/```
+Download the CSV file ```"Sirene : Fichier StockEtablissement"``` here : https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/ 
 Download this project with git clone : ``` git clone https://github.com/YassHouays/siret-invaders.git ``` </Br>
 And install it with ```npm install```
 
+### CONFIG 
 You have to create a .env file with a variable ```NOSQL_URL=mongodb://localhost:27017/siret-invaders``` -> replace it with you'r url and an other variable : ```NOSQL_TABLE=sirets``` with you'r own table.
 
 ### METHOD 
