@@ -63,10 +63,8 @@ pm2.connect(function(err) {
     if (err) {
       process.exit(2);
     }
-    
-    pm2.list((err, list) => {
-    //   console.log(err, list)
-    })
+
+
     
     let history = fs.readFileSync(output_folder+'history.json');
     history = JSON.parse(history);
@@ -92,9 +90,6 @@ pm2.connect(function(err) {
                 if (err) throw err
             });
             findTaske=[];
-        }
-        else{
-            // process.exit();
         }
     }
 

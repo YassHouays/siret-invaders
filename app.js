@@ -39,7 +39,7 @@ let hrstart = process.hrtime();
 csvSplitStream.split(
   fs.createReadStream(file_source+'StockEtablissement_utf8.csv'),
   {
-    lineLimit: 200000
+    lineLimit: 300000
   },
   (index) => fs.createWriteStream(output_folder+`output-${index+1}.csv`),
 

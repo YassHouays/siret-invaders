@@ -25,7 +25,7 @@ if(fs.existsSync(output_folder+`output-${process.argv[2]}.csv`)){
 
         datas.forEach(function(doc) {
             bulkUpdateOps.push({ "insertOne": { "document": doc } });
-
+                
             if (bulkUpdateOps.length === 1000) {
                 db.bulkWrite(bulkUpdateOps).then(function(r) {
                     console.log('inserted');
